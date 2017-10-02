@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/Lab4.dir/main.c.o CMakeFiles/Lab4.dir/func.c.o CMakeFiles/Lab4.dir/list.c.o  -o Lab4 

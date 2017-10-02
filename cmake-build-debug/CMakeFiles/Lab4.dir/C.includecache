@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vladlensky/CLionProjects/Lab4/func.c
+list.h
+/home/vladlensky/CLionProjects/Lab4/list.h
+stdlib.h
+-
+func.h
+/home/vladlensky/CLionProjects/Lab4/func.h
+
+/home/vladlensky/CLionProjects/Lab4/func.h
+
+/home/vladlensky/CLionProjects/Lab4/list.c
+stdlib.h
+-
+malloc.h
+-
+list.h
+/home/vladlensky/CLionProjects/Lab4/list.h
+
+/home/vladlensky/CLionProjects/Lab4/list.h
+
+/home/vladlensky/CLionProjects/Lab4/main.c
+stdlib.h
+-
+stdio.h
+-
+list.h
+/home/vladlensky/CLionProjects/Lab4/list.h
+func.h
+/home/vladlensky/CLionProjects/Lab4/func.h
+
