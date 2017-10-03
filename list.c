@@ -2,17 +2,15 @@
 #include <malloc.h>
 #include "list.h"
 
-List_t* List_create() {
-	List_t* list = malloc(sizeof(List_t));
-	list->size = 0;
-	list->head = NULL;
-	list->tail = NULL;
+Node_t* List_create(int value) {
+	Node_t* list = malloc(sizeof(Node_t));
+	list->value = value;
+    list->next = NULL;
 	return list;
 }
 
-int List_sum(List_t* list) {
+int List_sum(Node_t const * node) {
 	int result = 0;
-	Node_t* node = list->head;
 	while (node != NULL) {
 		result += node->value;
 		node    = node->next;
@@ -20,74 +18,66 @@ int List_sum(List_t* list) {
 	return result;
 }
 
-void List_add_back(List_t* list, int value) {
-	Node_t* new_node = malloc(sizeof(Node_t));
-	new_node->value = value;
-	new_node->next  = NULL;
-	if (list->head == NULL) {
-		list->head = new_node;
-		list->tail = new_node;
-		list->size = 1;
-	} else {
-		list->tail->next = new_node;
-		list->tail = new_node;
-		list->size = list->size + 1;
-	}
-}
-
-void List_add_front(List_t* list, int value) {
-    Node_t* new_node = malloc(sizeof(Node_t));
-    new_node->value = value;
-    new_node->next  = list->head;
-    if (list->head == NULL) {
-        list->head = new_node;
-        list->tail = new_node;
-        list->size = 1;
-    } else {
-        list->head=new_node;
-        list->size++;
+void List_add_back(Node_t ** const node, int value) {
+	Node_t* new_node = List_create(value);
+    Node_t* temp = (*node);
+    while(temp->next != NULL){
+        temp  = temp->next;
     }
+    temp->next = new_node;
 }
 
-void List_free(List_t* list) {
-    if (list->head == NULL) {
-        free(list);
-    } else {
-        Node_t * node = list->head;
+void List_add_front(Node_t** node, int value) {
+    Node_t* new_node = List_create(value);
+    new_node->next=(*node);
+    node = &new_node;
+}
+
+void List_free(Node_t* node) {
         while(node!=NULL){
             free(node);
             node=node->next;
         }
-        free(list);
-    }
 }
 
-Node_t* List_node_at(List_t* list,int element){
-    if(list->size<=element){
-        printf("Слишком большой номер элемента! Максимальный размер - %d\n",list->size);
+Node_t* List_node_at(Node_t * list,int element){
+    if(List_length(list)<=element){
+        //printf("Слишком большой номер элемента! Размер списка - %d\n",List_length(list));
         return NULL;
     }
-    Node_t* getter = list->head;
     while (element!=0) {
         element--;
-        getter = getter->next;
+        list = list->next;
     }
-    return getter;
+    return list;
 }
 
-int List_get(List_t* list,int element){
+int List_get(Node_t * list,int element){
     Node_t * node = List_node_at(list,element);
     if(node!=NULL)
         return node->value;
     else
-        return -1;
+        return 0;
 }
 
-void List_read(List_t* list){
+int List_read(Node_t * list){
     printf("Введите список целых чисел через пробел:\n");
     int temp;
     while(scanf("%d", &temp) == 1)
     {
-        List_add_back(list,temp);
+        List_add_back(&list,temp);
     }
+    if(list->next==NULL)
+        return 0;
+    else
+        return 1;
+}
+
+int List_length(Node_t const * node){
+    int length = 0;
+    while(node!=NULL){
+        length++;
+        node=node->next;
+    }
+    return length;
 }

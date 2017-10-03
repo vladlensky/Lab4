@@ -12,13 +12,13 @@ typedef struct List_t {
     struct Node_t* tail;
 } List_t;
 
-List_t* List_create();
-int List_sum(List_t* list);
-void List_add_back(List_t* list, int value);
-void List_add_front(List_t* list, int value);
-void List_free(List_t* list);
-Node_t* List_node_at(List_t* list,int element);
-int List_get(List_t* list,int element);
-void List_read(List_t* list);
-
+Node_t* List_create(int value);
+int List_sum(Node_t const* list);
+void List_add_back(Node_t** list, int value);
+void List_add_front(Node_t** list, int value);
+void List_free(Node_t* list);
+Node_t* List_node_at(Node_t * list,int element);
+int List_get(Node_t * list,int element);
+int List_read(Node_t* list);
+int List_length(Node_t const * node);
 #endif

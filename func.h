@@ -3,10 +3,10 @@
 
 
 void foreach(Node_t * node,void (*f)(int));
-List_t* map(List_t* list,int (*f)(int));
-void map_mut(List_t* list,int (*f)(int));
-int foldl(List_t* list,int (*f)(int, int), int bat);
-List_t* iterate(int first_element,int length,int (*f)(int));
+Node_t* map(Node_t const * list,int (*f)(int));
+void map_mut(Node_t* node,int (*f)(int));
+int foldl(Node_t const * node,int (*f)(int, int), int bat);
+Node_t* iterate(int first_element,int length,int (*f)(int));
 int square(int element);
 int cube(int element);
 void node_print_space(int value);

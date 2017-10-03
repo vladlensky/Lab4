@@ -1,5 +1,5 @@
+#include <stdio.h>
 #include "list.h"
-#include <stdlib.h>
 #include "func.h"
 
 void foreach(Node_t * node,void (*f)(int)){
@@ -9,27 +9,25 @@ void foreach(Node_t * node,void (*f)(int)){
     }
 }
 
-List_t* map(List_t* list,int (*f)(int)){
-    List_t* newList = List_create();
-    Node_t* node = list->head;
-    while (node!=NULL){
-        List_add_back(newList,f(node->value));
-        node=node->next;
+Node_t* map(Node_t const * list,int (*f)(int)){
+    Node_t* newList = List_create(f(list->value));
+    list=list->next;
+    while (list!=NULL){
+        List_add_back(&newList,f(list->value));
+        list=list->next;
     }
     return newList;
 }
 
-void map_mut(List_t* list,int (*f)(int)){
-    Node_t* node = list->head;
+void map_mut(Node_t* node,int (*f)(int)){
     while (node!=NULL){
         node->value=f(node->value);
         node=node->next;
     }
 }
 
-int foldl(List_t* list,int (*f)(int, int), int bat)
+int foldl(Node_t const * node,int (*f)(int, int), int bat)
 {
-    Node_t* node = list->head;
     while (node != NULL)
     {
         bat = f(bat, node->value);
@@ -38,12 +36,12 @@ int foldl(List_t* list,int (*f)(int, int), int bat)
     return bat;
 }
 
-List_t* iterate(int first_element,int length,int (*f)(int)){
-    List_t* list = List_create();
+Node_t* iterate(int first_element,int length,int (*f)(int)){
+    Node_t* list = List_create(first_element);
     int i;
-    for(i = 0;i < length;i++){
-        List_add_back(list,first_element);
+    for(i = 1;i < length;i++){
         first_element=f(first_element);
+        List_add_back(&list,first_element);
     }
     return list;
 }
